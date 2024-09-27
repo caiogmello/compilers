@@ -1,0 +1,25 @@
+mywc:
+      18      32     245
+
+wc:
+ 18  44 245 mywc.l
+
+
+******************************************************************************************************************************************
+6 -   Há diferenças entre as saídas pois as definições de palavra são diferentes no wc e mywc.
+      No mywc, palavra é qualquer cadeia com letras minúsculas ou maiúsculas, com um ou mais caracteres. 
+      Sendo representada assim:
+            - [a-zA-Z]+
+      Já no wc, palavra é qualquer cadeia com qualquer símbolo e com um ou mais caracteres, que não seja:
+            - \t - um tab;
+            - \n ou \r - uma quebra de linha;
+            - \v - um tab vertical;
+            - \f - formfeed;
+      Sendo representa assim:
+            - [^ \t\n\r\f\v]+
+
+      Portanto, o alfabeto do wc é maior, logo aceitaria mais palavras no arquivo do que o mywc. Por isso, a diferença entre a segunda coluna nos outputs.
+******************************************************************************************************************************************
+
+mywc-linux:
+      18      44     245

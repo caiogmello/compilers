@@ -1,0 +1,130 @@
+Gramática
+
+    0 $accept: start $end
+
+    1 start: expr
+
+    2 expr: expr '+' term
+    3     | term
+
+    4 term: ID '(' expr ')'
+    5     | ID
+
+
+Terminais, com as regras onde eles aparecem
+
+    $end (0) 0
+    '(' (40) 4
+    ')' (41) 4
+    '+' (43) 2
+    error (256)
+    ID (258) 4 5
+
+
+Não terminais com as regras onde eles aparecem
+
+    $accept (7)
+        à esquerda: 0
+    start (8)
+        à esquerda: 1
+        à direita: 0
+    expr (9)
+        à esquerda: 2 3
+        à direita: 1 2 4
+    term (10)
+        à esquerda: 4 5
+        à direita: 2 3
+
+
+Estado 0
+
+    0 $accept: • start $end
+
+    ID  deslocar, e ir ao estado 1
+
+    start  ir ao estado 2
+    expr   ir ao estado 3
+    term   ir ao estado 4
+
+
+Estado 1
+
+    4 term: ID • '(' expr ')'
+    5     | ID •
+
+    '('  deslocar, e ir ao estado 5
+
+    $padrão  reduzir usando a regra 5 (term)
+
+
+Estado 2
+
+    0 $accept: start • $end
+
+    $end  deslocar, e ir ao estado 6
+
+
+Estado 3
+
+    1 start: expr •
+    2 expr: expr • '+' term
+
+    '+'  deslocar, e ir ao estado 7
+
+    $padrão  reduzir usando a regra 1 (start)
+
+
+Estado 4
+
+    3 expr: term •
+
+    $padrão  reduzir usando a regra 3 (expr)
+
+
+Estado 5
+
+    4 term: ID '(' • expr ')'
+
+    ID  deslocar, e ir ao estado 1
+
+    expr  ir ao estado 8
+    term  ir ao estado 4
+
+
+Estado 6
+
+    0 $accept: start $end •
+
+    $padrão  aceitar
+
+
+Estado 7
+
+    2 expr: expr '+' • term
+
+    ID  deslocar, e ir ao estado 1
+
+    term  ir ao estado 9
+
+
+Estado 8
+
+    2 expr: expr • '+' term
+    4 term: ID '(' expr • ')'
+
+    '+'  deslocar, e ir ao estado 7
+    ')'  deslocar, e ir ao estado 10
+
+
+Estado 9
+
+    2 expr: expr '+' term •
+
+    $padrão  reduzir usando a regra 2 (expr)
+
+
+Estado 10
+
+    4 term: ID '(' expr ')' •
+
+    $padrão  reduzir usando a regra 4 (term)

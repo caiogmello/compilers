@@ -1,0 +1,11 @@
+[program 
+[func-declaration 
+[bool]
+[foo]
+[params
+]
+[block 
+[return-stmt [true]]
+]
+]
+]
